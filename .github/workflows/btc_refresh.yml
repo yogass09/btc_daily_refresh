@@ -32,4 +32,4 @@ jobs:
 
       - name: Run R script
         run: |
-          Rscript ohlcv_btc_daily.R
+          Rscript ohlcv_daily_btc.R
