@@ -5,8 +5,7 @@ library(crypto2)
 
 ##  Activate Later as script 
 btc_listing_raw <-  crypto_listings(limit=1,which="historical", quote=TRUE,
-                                       start_date = =Sys.Date()-1)
-
+                                       start_date = Sys.Date()-1)
 
 btc_listing_raw <- btc_listing_raw%>%
   select(
@@ -18,7 +17,8 @@ btc_listing_raw <- btc_listing_raw%>%
     slug,
     percent_change24h,
     percent_change7d,
-    price
+    price,
+    market_cap
   )
 
 
