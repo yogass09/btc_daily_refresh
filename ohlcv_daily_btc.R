@@ -11,7 +11,7 @@ library(crypto2)
 coin_list_all <- crypto_list(only_active = TRUE)
 
 btc_daily<-crypto_history(coin_list = coin_list_all,convert = "USD",limit = 1,
-                          sleep = 0, start_date = Sys.Date()-5, end_date = Sys.Date())
+                          sleep = 0, start_date = Sys.Date()-1, end_date = Sys.Date())
 
 # Set up your Azure SQL Database connection
 con <- dbConnect(odbc::odbc(), Driver = "ODBC Driver 17 for SQL Server",
