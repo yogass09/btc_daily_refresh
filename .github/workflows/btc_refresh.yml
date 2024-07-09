@@ -36,4 +36,4 @@ jobs:
 
       - name: Run R script
         run: |
-          Rscript btc_listing__raw.R
+          Rscript btc_listing_raw.R
