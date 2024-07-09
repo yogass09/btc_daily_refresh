@@ -24,7 +24,7 @@ jobs:
 
       - name: Install R packages
         run: |
-          Rscript -e 'install.packages(c("DBI", "odbc", "dplyr", "crypto2"))'
+          Rscript -e 'install.packages(c("DBI", "odbc", "dplyr", "crypto2", "lubrilast_updated", "tidyverse", "quantmod"))'
 
       - name: List files in directory (optional for debugging)
         run: |
