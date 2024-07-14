@@ -1,13 +1,12 @@
-
+# Start time
+import time
+start_time = time.time()
 import pandas
 import pandas_ta as ta
 import pyodbc
 from datetime import datetime, timedelta
 from sqlalchemy import create_engine
-import time
 
-# Start time
-start_time = time.time()
 
 # Define connection parameters
 server = 'cp-io-sql.database.windows.net'
@@ -22,10 +21,26 @@ conn = pyodbc.connect(
     f'DRIVER={driver};SERVER={server},{port};DATABASE={database};UID={username};PWD={password}'
 )
 
+
 # Create a cursor object
 cursor = conn.cursor()
+
+# Execute a query to fetch the list of tables
+cursor.execute("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'")
+
+# Fetch all results
+tables = cursor.fetchall()
+
+# Process the results to create a list of table names
+table_list = [table[0] for table in tables]
+
+# Print the list of tables
+print("Available tables:")
+for table in table_list:
+    print(table)
     
-# Load the btc_top_charts table into a DataFrame
+    
+    # Load the btc_top_charts table into a DataFrame
 query = 'SELECT * FROM [dbo].[btc_daily]'
 df = pd.read_sql(query, conn)
 
@@ -44,12 +59,18 @@ date_threshold = datetime.now() - timedelta(days=365)
 
 # Filter the DataFrame to include only the last 365 days
 df_daily = df_daily[df_daily['timestamp'] >= date_threshold]
+
+print("Filtered DataFrame:")
+print(df_daily)
+
 df=df_daily
+
 
 
 df_daily = pd.DataFrame(df_daily)
 
-## indexing because required
+import pandas as pd
+
 
 # Ensure 'timestamp' is a datetime
 df_daily['timestamp'] = pd.to_datetime(df_daily['timestamp'])
@@ -59,6 +80,8 @@ df_daily['timestamp_duplicate'] = df_daily['timestamp']
 
 # Set 'timestamp' as the index
 df_daily.set_index('timestamp', inplace=True)
+
+
 
 # Calculate  metrics
 df_daily['log_return'] = ta.log_return(df_daily['close'], cumulative=False)
@@ -129,10 +152,13 @@ df_daily['volt_true_range'] = ta.true_range(df_daily['high'], df_daily['low'], d
 # Ulcer Index (UI)
 df_daily['colt_ui'] = ta.ui(df_daily['close'])
 
+
+
 df_daily_metrics=df_daily
 
 # Assuming df_daily_metrics is your DataFrame
 df_daily_metrics = df_daily_metrics.sort_values(by='timestamp_duplicate', ascending=False).head(1)
+
 # Assuming df_daily_metrics is your DataFrame containing only the new row
 # Example: df_daily_metrics = pd.DataFrame({...})
 
@@ -166,9 +192,10 @@ cnxn.commit()
 cursor.close()
 cnxn.close()
 
-
 end_time = time.time()
 time= end_time-start_time
 time
 
+import sys
+print(sys.version)
 
