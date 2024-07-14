@@ -1,4 +1,4 @@
-name: BTC Daily Refresh
+name:  Daily Refresh momentum
 
 on:
   schedule:
