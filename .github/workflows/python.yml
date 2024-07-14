@@ -23,7 +23,7 @@ jobs:
 
       - name: Install Python packages
         run: |
-          pip install --upgrade pyodbc pandas pandas-ta sqlalchemy numpy
+          pip install --upgrade pyodbc pandas pandas-ta sqlalchemy numpy NaN 
 
       - name: List files in directory (optional for debugging)
         run: |
