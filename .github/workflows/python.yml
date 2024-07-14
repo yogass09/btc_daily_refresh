@@ -31,7 +31,7 @@ jobs:
 
       - name: Run Python scripts
         run: |
-          python vol_volt_metrics.py
+         
           python momentum.py
           python overlap.py
           python trend.py
