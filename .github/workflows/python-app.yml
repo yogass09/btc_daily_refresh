@@ -3,7 +3,7 @@ name:  TA_refresher
 
 on:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '10 0 * * *'
   workflow_dispatch: {}
   push:
     branches:
@@ -36,7 +36,7 @@ jobs:
         pip install -U git+https://github.com/twopirllc/pandas-ta
 
     - name: Run Python scripts
-      continue-on-error: true
+      
       run: |
         python momentum.py
         python vol_volt_metrics.py
