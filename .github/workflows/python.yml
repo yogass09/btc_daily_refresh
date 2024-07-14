@@ -19,11 +19,15 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.9.13'  
+          python-version: '3.9'  
 
       - name: Install Python packages
         run: |
           pip install --upgrade pyodbc pandas pandas-ta sqlalchemy numpy NaN 
+      - name: Install dependencies
+        run: |
+        pip install -U git+https://github.com/twopirllc/pandas-ta
+        
 
       - name: List files in directory (optional for debugging)
         run: |
