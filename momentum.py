@@ -25,10 +25,7 @@ conn = pyodbc.connect(
 # Create a cursor object
 cursor = conn.cursor()
 
-# Execute a query to fetch the list of tables
-cursor.execute("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'")
 
-    
     # Load the btc_top_charts table into a DataFrame
 query = 'SELECT * FROM [dbo].[btc_daily]'
 df = pd.read_sql(query, conn)
