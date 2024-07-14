@@ -1,5 +1,3 @@
-pip install --upgrade numexpr
-
 
 import time
 # Start time
