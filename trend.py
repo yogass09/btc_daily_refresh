@@ -24,16 +24,6 @@ conn = pyodbc.connect(
 # Create a cursor object
 cursor = conn.cursor()
 
-# Execute a query to fetch the list of tables
-cursor.execute("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'")
-
-# Fetch all results
-tables = cursor.fetchall()
-
-# Process the results to create a list of table names
-table_list = [table[0] for table in tables]
-
- 
     
     # Load the btc_top_charts table into a DataFrame
 query = 'SELECT * FROM [dbo].[btc_daily]'
@@ -59,9 +49,6 @@ df_daily = df_daily[df_daily['timestamp'] >= date_threshold]
 
 df=df_daily
 
-import pandas as pd
-import pandas_ta as ta
-import matplotlib.pyplot as plt
 
 # Filter
 df_daily_trend = df
