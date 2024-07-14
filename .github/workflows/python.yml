@@ -1,0 +1,47 @@
+name: Update data python
+
+on:
+  schedule:
+    - cron: "0 */5 * * *"  # Runs daily at midnight UTC. Adjust as needed.
+  workflow_dispatch: {}
+  push:
+    branches:
+      - main
+
+
+  run_vol_volt_metrics:
+    runs-on: ubuntu-latest
+    needs: scheduled  # Wait for the scheduled job to complete
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'  
+
+      - name: Install Python packages
+        run: |
+          pip install --upgrade pyodbc pandas pandas-ta sqlalchemy numpy
+
+      - name: List files in directory (optional for debugging)
+        run: |
+          ls  # List files in the current directory
+
+      - name: Run Python script 
+        run: |
+          python vol_volt_metrics.py
+
+      - name: Run Python script
+        run: |
+          python momentum.py
+
+      - name: Run Python script
+        run: |
+          python overlap.py
+
+      - name: Run Python script
+        run: |
+          python trend.py
