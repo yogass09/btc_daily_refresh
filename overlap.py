@@ -1,7 +1,7 @@
 import time
 # Start time
 start_time = time.time()
-import pandas
+import pandas as pd
 import pandas_ta as ta
 import pyodbc
 from datetime import datetime, timedelta
