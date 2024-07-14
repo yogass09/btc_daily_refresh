@@ -19,7 +19,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.9'  
+          python-version: '3.9.13'  
 
       - name: Install Python packages
         run: |
@@ -34,4 +34,6 @@ jobs:
          
           python momentum.py
           python overlap.py
-          python trend.py
+          python trend.py          
+          python vol_volt_metrics.py
+
