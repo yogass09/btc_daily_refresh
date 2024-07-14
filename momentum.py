@@ -1,3 +1,5 @@
+import numpy as np
+npNaN = np.nan
 import time
 # Start time
 start_time = time.time()
