@@ -37,6 +37,9 @@ jobs:
       run: |
         pip install -U git+https://github.com/twopirllc/pandas-ta
 
-    - name: Run Python script
+    - name: Run Python scripts
       continue-on-error: true
-      run: python momentum.py
+      run: |
+        python momentum.py
+        python vol_volt_metrics.py
+
