@@ -2,16 +2,15 @@ name: Update data python
 
 on:
   schedule:
-    - cron: "0 */5 * * *"  # Runs daily at midnight UTC. Adjust as needed.
+    - cron: "*/5 0 * * *" 
   workflow_dispatch: {}
   push:
     branches:
       - main
 
-
-  run_vol_volt_metrics:
+jobs:
+  run_python_scripts:
     runs-on: ubuntu-latest
-    needs: scheduled  # Wait for the scheduled job to complete
 
     steps:
       - name: Checkout repository
@@ -30,18 +29,9 @@ on:
         run: |
           ls  # List files in the current directory
 
-      - name: Run Python script 
+      - name: Run Python scripts
         run: |
           python vol_volt_metrics.py
-
-      - name: Run Python script
-        run: |
           python momentum.py
-
-      - name: Run Python script
-        run: |
           python overlap.py
-
-      - name: Run Python script
-        run: |
           python trend.py
