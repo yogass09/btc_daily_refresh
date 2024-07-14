@@ -1,9 +1,9 @@
-import numpy as np
-npNaN = np.nan
+import pandas_ta as ta
+
 import time
 # Start time
 start_time = time.time()
-import pandas as pd
+import pandas
 import pandas_ta as ta
 import pyodbc
 from datetime import datetime, timedelta
@@ -25,7 +25,21 @@ conn = pyodbc.connect(
 # Create a cursor object
 cursor = conn.cursor()
 
+# Execute a query to fetch the list of tables
+cursor.execute("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'")
 
+# Fetch all results
+tables = cursor.fetchall()
+
+# Process the results to create a list of table names
+table_list = [table[0] for table in tables]
+
+# Print the list of tables
+print("Available tables:")
+for table in table_list:
+    print(table)
+    
+    
     # Load the btc_top_charts table into a DataFrame
 query = 'SELECT * FROM [dbo].[btc_daily]'
 df = pd.read_sql(query, conn)
@@ -45,6 +59,10 @@ date_threshold = datetime.now() - timedelta(days=720)
 
 # Filter the DataFrame to include only the last 365 days
 df_daily = df_daily[df_daily['timestamp'] >= date_threshold]
+
+print("Filtered DataFrame:")
+print(df_daily)
+
 
 df=df_daily
 
@@ -100,6 +118,7 @@ df_daily_momentum['qstick'] = ta.qstick(df_daily_momentum['close'], df_daily_mom
 
 # Assuming df_daily_metrics is your DataFrame
 df_daily_momentum = df_daily_momentum.sort_values(by='timestamp', ascending=False).head(1)
+df_daily_momentum
 
 # Assuming df_daily_metrics is your DataFrame containing only the new row
 # Example: df_daily_metrics = pd.DataFrame({...})
