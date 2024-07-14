@@ -3,11 +3,6 @@ name: Update data
 on:
   schedule:
     - cron: "0 0 * * *"  # Runs daily at midnight UTC. Adjust as needed.
-  workflow_dispatch: {}
-  push:
-    branches:
-      - main
-
 jobs:
   scheduled:
     runs-on: ubuntu-latest
