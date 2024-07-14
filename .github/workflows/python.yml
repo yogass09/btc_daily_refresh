@@ -27,4 +27,5 @@ jobs:
         pip install -U git+https://github.com/twopirllc/pandas-ta
 
     - name: Run Python script
+      continue-on-error: true
       run: python momentum.py
