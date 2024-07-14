@@ -1,4 +1,4 @@
-name: Update data
+name: BTC_price_listing_topcharts_CI
 
 on:
   schedule:
