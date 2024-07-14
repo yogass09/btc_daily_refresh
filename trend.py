@@ -1,7 +1,7 @@
 import time
 # Start time
 start_time = time.time()
-import pandas
+import pandas as pd
 import pandas_ta as ta
 import pyodbc
 from datetime import datetime, timedelta
@@ -20,15 +20,25 @@ conn = pyodbc.connect(
     f'DRIVER={driver};SERVER={server},{port};DATABASE={database};UID={username};PWD={password}'
 )
 
+
 # Create a cursor object
 cursor = conn.cursor()
 
 # Execute a query to fetch the list of tables
 cursor.execute("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'")
 
-# Load the btc_top_charts table into a DataFrame
+# Fetch all results
+tables = cursor.fetchall()
+
+# Process the results to create a list of table names
+table_list = [table[0] for table in tables]
+
+ 
+    
+    # Load the btc_top_charts table into a DataFrame
 query = 'SELECT * FROM [dbo].[btc_daily]'
 df = pd.read_sql(query, conn)
+
 
 # Columns to keep
 columns_to_keep = ['timestamp', 'open', 'high', 'low', 'close', 'volume', 'market_cap']
@@ -44,6 +54,8 @@ date_threshold = datetime.now() - timedelta(days=365)
 
 # Filter the DataFrame to include only the last 365 days
 df_daily = df_daily[df_daily['timestamp'] >= date_threshold]
+
+
 
 df=df_daily
 
@@ -96,8 +108,6 @@ add_indicators_to_df(df_daily_trend, vortex, 'vortex')
 df_daily_trend = df_daily_trend.sort_values(by='timestamp', ascending=False).head(1)
 df_daily_trend
 
-columns
-
 # Assuming df_daily_metrics is your DataFrame containing only the new row
 # Example: df_daily_metrics = pd.DataFrame({...})
 
@@ -137,3 +147,5 @@ end_time = time.time()
 # Calculate the elapsed time
 elapsed_time = end_time - start_time
 print(f"Elapsed time: {elapsed_time:.2f} seconds")
+
+
