@@ -57,6 +57,8 @@ jobs:
           pip install pandas-ta
           pip install pyodbc
           pip install sqlalchemy
+          pip install pandas-ta numpy
+
 
       - name: List files in directory (optional for debugging)
         run: |
