@@ -1,11 +1,13 @@
-# Start time
-start_time = time.time()
+
 import pandas
 import pandas_ta as ta
 import pyodbc
 from datetime import datetime, timedelta
 from sqlalchemy import create_engine
 import time
+
+# Start time
+start_time = time.time()
 
 # Define connection parameters
 server = 'cp-io-sql.database.windows.net'
